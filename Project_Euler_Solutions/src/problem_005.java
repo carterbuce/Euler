@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 
 /**
  * 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
@@ -7,7 +8,7 @@ public class problem_005 {
 
 	
 	public static void main(String[] args){
-		int answer = 1; //the answer will get incremented until it's divisible by everything up to 'divisibleupto'
+		int answer = 2; //the answer will get incremented until it's divisible by everything up to 'divisibleupto'
 		int divisibleupto = 20; //the number to test answer with
 		
 		while(true){
@@ -19,6 +20,19 @@ public class problem_005 {
 		}
 		
 		System.out.println(answer);
+		
+		//LCM solution (faster):
+		//uses the logic that lcm(a,b,c) = lcm(a,lcm(b,c))
+		//and the logic that lcm(a,b) = a*b / gcd(a,b)
+
+		BigInteger lcm = BigInteger.ONE;
+		int divide = 20;
+		
+		for(int i = 1; i <= divide; i++){
+			lcm = lcm.multiply(BigInteger.valueOf(i).divide(lcm.gcd(BigInteger.valueOf(i))));
+		}
+		
+		System.out.println(lcm);
 	}
 	
 	
